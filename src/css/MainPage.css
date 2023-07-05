@@ -80,8 +80,8 @@
     font-size: 32px !important;
 }
 .location-span{
-    font-size: 18px;
-    font-family: 500;
+    font-size: 21px;
+    font-family: 700;
 }
 .search-box-wrapper{
     display: flex;
@@ -112,7 +112,10 @@
     padding: 150px 0;
 }
 .weather-img-container img{ 
+    border-radius: 50%;
     width: 100%;
+    object-fit: cover;
+    border: 10px solid rgb(235, 235, 235);
 }
 .info-wrapper{
     padding: 150px 0 150px 24px;
