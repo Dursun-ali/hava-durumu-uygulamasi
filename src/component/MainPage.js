@@ -18,10 +18,10 @@ const MainPage = () => {
     function inpFunc(e) {
         setValue(e.target.value)
     }
-    useEffect(() => {
+      useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://api.weatherstack.com/current?access_key=24689b01fb90469e7fe8ddd4fe670ca7&query=New York`);
+            const response = await axios.get(`https://api.weatherstack.com/current?access_key=24689b01fb90469e7fe8ddd4fe670ca7&query=New York`);
             setArray(response.data);
             setIsLoading(false);
           } catch (error) {
@@ -34,7 +34,7 @@ const MainPage = () => {
 
     function inpWrite() {
         setIsLoading(true)
-        axios.get(`http://api.weatherstack.com/current?access_key=24689b01fb90469e7fe8ddd4fe670ca7&query=${value}`)
+        axios.get(`https://api.weatherstack.com/current?access_key=24689b01fb90469e7fe8ddd4fe670ca7&query=${value}`)
             .then(response => {
                 setArray(response.data)
                 setIsLoading(false)
