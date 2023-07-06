@@ -45,6 +45,7 @@ const MainPage = () => {
                 setIsLoading(false)
             });
     }
+        console.log(array);
         return (
         <>
             <div className="main-container">
