@@ -4,23 +4,23 @@ import PlaceIcon from '@mui/icons-material/Place';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import InfoIcon from '@mui/icons-material/Info';
+import CityData from './CityData';
 
 const MainPage = () => {
     const [array, setArray] = useState();
     const [value, setValue] = useState()
     const [isLoading, setIsLoading] = useState(true);
     const [warning,setWarning]=useState(false);
-
+    const [show,setShow]=useState(false)
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     const APP_KEY = "d923ae6770a14f9494d95349232003 ";
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsList = document.getElementById('suggestionsList');
 
-    function inpFunc(e) {
-        setValue(e.target.value)
-    }
       useEffect(() => {
         const fetchData = async () => {
           try {
@@ -37,6 +37,7 @@ const MainPage = () => {
       }, []);
 
     function inpWrite() {
+        setShow(false)
         setIsLoading(true)
         axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=7&aqi=no&alerts=no`)
             .then(response => {
@@ -51,7 +52,30 @@ const MainPage = () => {
                 setIsLoading(false)
             });
     }
-        console.log(array);
+    function selectWrite() {
+        setValue(document.getElementsByClassName('search-inp')[0].value)
+    }
+    function searchFunction(e){
+        setValue(e.target.value)
+        // console.log(e.target.value);
+
+        setShow(true)
+        const searchValue = searchInput.value.toLowerCase();
+        suggestionsList.innerHTML = '';
+  
+        const filteredData = CityData.filter(item => item.toLowerCase().includes(searchValue));
+  
+        filteredData.forEach(item => {
+          const listItem = document.createElement('div');
+          listItem.classList.add("data-div")
+          listItem.textContent = item;
+          listItem.addEventListener('click', function() {
+            searchInput.value = item;
+          });
+          suggestionsList.appendChild(listItem);
+        });
+      }
+      console.log(value);
         return (
         <>
             <div className="main-container">
@@ -59,13 +83,14 @@ const MainPage = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className='search-box-wrapper'>
-                                <input onChange={inpFunc} className='search-inp' type="text" />
+                                <input id="searchInput" onClick={()=>{setShow(true)}} onInput={searchFunction} className='search-inp' type="text" />
+                                <div onClick={selectWrite} style={!show ?{display:"none"}:{display:"block"}} id="suggestionsList"></div>
                                 <button onClick={inpWrite} className='search-btn'><SearchIcon /> City Search</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="weather-container">
+                <div onClick={()=>{setShow(false)}}  className="weather-container">
                     <div className="row">
                         <div  style={warning ? { backgroundColor: "white" } : { display: "none" }} className="information-wrapper">
                                 <div style={warning ? {display:"block"}:{display:"none"}} className='information-box'>

@@ -99,6 +99,7 @@
 }
 
 .search-box-wrapper {
+    position: relative;
     display: flex;
     justify-content: end;
 }
@@ -224,3 +225,31 @@
     margin-right: 12px;
     margin-bottom: 5px;
 }
+
+
+
+#suggestionsList {
+    position: absolute;
+    width: 53%;
+    top: 65px;
+    max-height: 280px;
+    overflow-y: auto;
+    border: 1px solid #F7F7F7;
+    background-color: #fff;
+    z-index: 999;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+  }
+
+  #suggestionsList div {
+    padding: 5px;
+    cursor: pointer;
+  }
+  #suggestionsList::-webkit-scrollbar {
+    display: none;
+  }
+  .data-div{
+    border-bottom: 1px solid rgb(211, 211, 211);
+    color: #363636;
+    font-weight: 600;
+  }
