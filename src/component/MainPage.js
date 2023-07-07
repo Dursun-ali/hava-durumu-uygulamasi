@@ -24,7 +24,7 @@ const MainPage = () => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=London&days=7&aqi=no&alerts=no`);
+            const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=London&days=7&aqi=no&alerts=no`);
             setArray(response.data);
             setIsLoading(false);
           } catch (error) {
@@ -38,7 +38,7 @@ const MainPage = () => {
 
     function inpWrite() {
         setIsLoading(true)
-        axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=7&aqi=no&alerts=no`)
+        axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=7&aqi=no&alerts=no`)
             .then(response => {
                 setArray(response.data)
                 setIsLoading(false)
