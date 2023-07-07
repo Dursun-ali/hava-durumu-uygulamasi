@@ -27,7 +27,6 @@ const MainPage = () => {
             const response = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=London&days=7&aqi=no&alerts=no`);
             setArray(response.data);
             setIsLoading(false);
-            setWarning(false)
           } catch (error) {
             console.log(error);
             setWarning(true)
