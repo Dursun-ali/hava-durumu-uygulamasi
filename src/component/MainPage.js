@@ -67,11 +67,11 @@ const MainPage = () => {
                 </div>
                 <div className="weather-container">
                     <div className="row">
-                        {/* <div  style={warning ? { backgroundColor: "white" } : { display: "none" }} className="information-wrapper">
+                        <div  style={warning ? { backgroundColor: "white" } : { display: "none" }} className="information-wrapper">
                                 <div style={warning ? {display:"block"}:{display:"none"}} className='information-box'>
                                     <InfoIcon className='info-warning-icon'/> Aradığınız içerikte Şehir bulunmamaktadır.
                                 </div>
-                        </div> */}
+                        </div>
                         <div style={isLoading ? { backgroundColor: "#F7F7F7" } : { display: "none" }} className='loading-wrapper'>
                             <div style={isLoading ? { display: "block" } : { display: "none" }}>
                                 <div className="loading-spinner"></div>
