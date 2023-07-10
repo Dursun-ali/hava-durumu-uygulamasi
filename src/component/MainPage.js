@@ -38,11 +38,10 @@ const MainPage = () => {
         fetchData();
       }, []);
      function inpWrite(e) {
-      setCityKey(e.target.id)
       setCity(document.getElementsByClassName('data-div')[e.target.id].textContent)
         setShow(false);
         setIsLoading(true);
-          const response = axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${cityKey}&days=7&aqi=no&alerts=no`);
+          const response = axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${e.target.id}&days=7&aqi=no&alerts=no`);
           response.then(response=>{
             setArray(response.data);
             setIsLoading(false);
