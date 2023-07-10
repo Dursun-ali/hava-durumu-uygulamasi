@@ -21,7 +21,6 @@ const MainPage = () => {
     const searchInput = document.getElementById('searchInput');
     const suggestionsList = document.getElementById('suggestionsList');
     const [city,setCity]=useState("Trabzon")
-    const [cityKey,setCityKey]=useState("Trabzon")
 
       useEffect(() => {
         const fetchData = async () => {
