@@ -20,7 +20,8 @@ const MainPage = () => {
     const APP_KEY = "d923ae6770a14f9494d95349232003";
     const searchInput = document.getElementById('searchInput');
     const suggestionsList = document.getElementById('suggestionsList');
-    const [cityName,setCityName]=useState("Trabzon")
+    const [city,setCity]=useState("Trabzon")
+    const [cityKey,setCityKey]=useState("Trabzon")
 
       useEffect(() => {
         const fetchData = async () => {
@@ -36,47 +37,24 @@ const MainPage = () => {
         };
         fetchData();
       }, []);
-    async function inpWrite(e) {
-      setCityName(document.getElementsByClassName('data-div')[e.target.id].textContent)
+     function inpWrite(e) {
+      setCityKey(e.target.id)
+      setCity(document.getElementsByClassName('data-div')[e.target.id].textContent)
         setShow(false);
         setIsLoading(true);
-        try {
-          await replaceWord();
-          const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${document.getElementsByClassName('data-div')[0].id}&days=7&aqi=no&alerts=no`);
-          setArray(response.data);
-          setIsLoading(false);
-          setWarning(false);
-          console.log(response.data);
-        } catch (error) {
-          console.log(error);
-          setWarning(true);
-          setIsLoading(false);
+          const response = axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${cityKey}&days=7&aqi=no&alerts=no`);
+          response.then(response=>{
+            setArray(response.data);
+            setIsLoading(false);
+            setWarning(false);
+            console.log(response.data);
+          }).catch(error => {
+            console.log(error);
+            setWarning(true);
+            setIsLoading(false);
+          });
+  
         }
-      }
-      async function replaceWord  () {
-        return new Promise(resolve => {
-        const words = value?.split(' ');
-        const updatedWords = words?.map(word => {
-          const turkishChars = 'çÇğĞıİöÖşŞüÜ';
-          const englishChars = 'cCgGiIoOsSuU';
-          let updatedWord = '';
-    
-          for (let i = 0; i < word.length; i++) {
-            const char = word[i];
-            const index = turkishChars.indexOf(char);
-            if (index !== -1) {
-              updatedWord += englishChars[index];
-            } else {
-              updatedWord += char;
-            }
-          }
-          return updatedWord;
-        });
-    
-        const updatedText = updatedWords?.join(' ');
-        setValue(updatedText);
-        resolve();
-      });}
     function searchFunction(e){
         setValue(e.target.value)
         setShow(true)
@@ -91,7 +69,6 @@ const MainPage = () => {
             searchInput.value = item.cityName.name;
           });
           listItem.id = (item.cityData);
-          
           suggestionsList.appendChild(listItem);
         });
       }
@@ -147,7 +124,7 @@ const MainPage = () => {
                                     </p>
                                 </div>
                                 <div className='location-section'>
-                                    <PlaceIcon className='location-icon' /> <span className='location-span'>{cityName}</span>
+                                    <PlaceIcon className='location-icon' /> <span className='location-span'>{city}</span>
                                 </div>
                             </div>
                         </div>

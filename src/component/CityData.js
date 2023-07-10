@@ -26,7 +26,7 @@ export default [
   { cityName: { name: "Eskişehir", id: 25 }, cityData: "eskisehir" },
   { cityName: { name: "Gaziantep", id: 26 }, cityData: "gaziantep" },
   { cityName: { name: "Giresun", id: 27 }, cityData: "giresun" },
-  { cityName: { name: "Gümüşhane", id: 28 }, cityData: "gümüshane" },
+  { cityName: { name: "Gümüşhane", id: 28 }, cityData: "gumushane" },
   { cityName: { name: "Hakkari", id: 29 }, cityData: "hakkari" },
   { cityName: { name: "Hatay", id: 30 }, cityData: "hatay" },
   { cityName: { name: "Isparta", id: 31 }, cityData: "isparta" },
