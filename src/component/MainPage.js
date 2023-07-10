@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import InfoIcon from '@mui/icons-material/Info';
 import CityData from './CityData';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const MainPage = () => {
     const [array, setArray] = useState();
@@ -17,9 +18,10 @@ const MainPage = () => {
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
-    const APP_KEY = "d923ae6770a14f9494d95349232003 ";
+    const APP_KEY = "d923ae6770a14f9494d95349232003";
     const searchInput = document.getElementById('searchInput');
     const suggestionsList = document.getElementById('suggestionsList');
+    const [long,setLong]=useState(0)
 
       useEffect(() => {
         const fetchData = async () => {
@@ -35,36 +37,58 @@ const MainPage = () => {
         };
         fetchData();
       }, []);
-
-    function inpWrite() {
-        setShow(false)
-        setIsLoading(true)
-        axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=7&aqi=no&alerts=no`)
-            .then(response => {
-                setArray(response.data)
-                setIsLoading(false)
-                setWarning(false)
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-                setWarning(true)
-                setIsLoading(false)
-            });
-    }
+    async function inpWrite() {
+        setShow(false);
+        setIsLoading(true);
+      
+        try {
+          await replaceWord();
+          const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=7&aqi=no&alerts=no`);
+          setArray(response.data);
+          setIsLoading(false);
+          setWarning(false);
+          console.log(response.data);
+        } catch (error) {
+          console.log(error);
+          setWarning(true);
+          setIsLoading(false);
+        }
+      }
+      async function replaceWord  () {
+        return new Promise(resolve => {
+        const words = value.split(' ');
+        const updatedWords = words.map(word => {
+          const turkishChars = 'çÇğĞıİöÖşŞüÜ';
+          const englishChars = 'cCgGiIoOsSuU';
+          let updatedWord = '';
+    
+          for (let i = 0; i < word.length; i++) {
+            const char = word[i];
+            const index = turkishChars.indexOf(char);
+            if (index !== -1) {
+              updatedWord += englishChars[index];
+            } else {
+              updatedWord += char;
+            }
+          }
+          return updatedWord;
+        });
+    
+        const updatedText = updatedWords.join(' ');
+        setValue(updatedText);
+        resolve();
+      });}
     function selectWrite() {
         setValue(document.getElementsByClassName('search-inp')[0].value)
+        setLong(document.getElementsByClassName('search-inp')[0].value.length)
     }
     function searchFunction(e){
         setValue(e.target.value)
-        // console.log(e.target.value);
-
+        setLong(e.target.value.length)
         setShow(true)
         const searchValue = searchInput.value.toLowerCase();
         suggestionsList.innerHTML = '';
-  
         const filteredData = CityData.filter(item => item.toLowerCase().includes(searchValue));
-  
         filteredData.forEach(item => {
           const listItem = document.createElement('div');
           listItem.classList.add("data-div")
@@ -75,7 +99,6 @@ const MainPage = () => {
           suggestionsList.appendChild(listItem);
         });
       }
-      console.log(value);
         return (
         <>
             <div className="main-container">
@@ -83,6 +106,7 @@ const MainPage = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className='search-box-wrapper'>
+                                <button style={long>0? {display:"block"}:{display:"none"}} className='edit-info-btn' onClick={replaceWord}><ModeEditOutlineIcon id="edit-info"/></button>
                                 <input id="searchInput" onClick={()=>{setShow(true)}} onInput={searchFunction} className='search-inp' type="text" />
                                 <div onClick={selectWrite} style={!show ?{display:"none"}:{display:"block"}} id="suggestionsList"></div>
                                 <button onClick={inpWrite} className='search-btn'><SearchIcon /> City Search</button>
@@ -94,7 +118,12 @@ const MainPage = () => {
                     <div className="row">
                         <div  style={warning ? { backgroundColor: "white" } : { display: "none" }} className="information-wrapper">
                                 <div style={warning ? {display:"block"}:{display:"none"}} className='information-box'>
+                                    <div>
                                     <InfoIcon className='info-warning-icon'/> Aradığınız içerikte Şehir bulunmamaktadır.
+                                    </div>
+                                    <div>
+                                    <ModeEditOutlineIcon className='info-edit-icon' /> ingilizce karakter sorunu olabilir bu ikona basabilirsiniz.
+                                    </div>                               
                                 </div>
                         </div>
                         <div style={isLoading ? { backgroundColor: "#F7F7F7" } : { display: "none" }} className='loading-wrapper'>

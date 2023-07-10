@@ -205,11 +205,10 @@
 }
 
 .information-box {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+    padding: 16px 0;
+    text-align: center;
     width: 60%;
-    height: 15%;
+    height: 18%;
     background-color: rgb(255, 255, 255);
     border-radius: 8px;
     box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
@@ -225,8 +224,28 @@
     margin-right: 12px;
     margin-bottom: 5px;
 }
-
-
+.info-edit-icon{
+    display: flex;
+    align-items: center;
+    color: #0096fa;
+    font-size: 34px !important; 
+    margin-right: 12px;
+    margin-bottom: 5px;
+}
+#edit-info{
+    color: #007bff;
+}
+.edit-info-btn{
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    margin-right: 12px;
+    transition: 0.5s ease;
+    background-color: white;
+}
+.edit-info-btn:hover{
+    background-color: #cecece;
+}
 
 #suggestionsList {
     position: absolute;
