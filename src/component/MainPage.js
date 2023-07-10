@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/MainPage.css'
 import PlaceIcon from '@mui/icons-material/Place';
-import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import InfoIcon from '@mui/icons-material/Info';
 import CityData from './CityData';
@@ -9,7 +8,7 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const MainPage = () => {
     const [array, setArray] = useState();
-    const [value, setValue] = useState()
+    const [value, setValue] = useState("trabzon")
     const [isLoading, setIsLoading] = useState(true);
     const [warning,setWarning]=useState(false);
     const [show,setShow]=useState(false)
@@ -21,12 +20,12 @@ const MainPage = () => {
     const APP_KEY = "d923ae6770a14f9494d95349232003";
     const searchInput = document.getElementById('searchInput');
     const suggestionsList = document.getElementById('suggestionsList');
-    const [long,setLong]=useState(0)
+    const [cityName,setCityName]=useState("Trabzon")
 
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=London&days=7&aqi=no&alerts=no`);
+            const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=Trabzon&days=7&aqi=no&alerts=no`);
             setArray(response.data);
             setIsLoading(false);
           } catch (error) {
@@ -37,13 +36,13 @@ const MainPage = () => {
         };
         fetchData();
       }, []);
-    async function inpWrite() {
+    async function inpWrite(e) {
+      setCityName(document.getElementsByClassName('data-div')[e.target.id].textContent)
         setShow(false);
         setIsLoading(true);
-      
         try {
           await replaceWord();
-          const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=7&aqi=no&alerts=no`);
+          const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${document.getElementsByClassName('data-div')[0].id}&days=7&aqi=no&alerts=no`);
           setArray(response.data);
           setIsLoading(false);
           setWarning(false);
@@ -56,8 +55,8 @@ const MainPage = () => {
       }
       async function replaceWord  () {
         return new Promise(resolve => {
-        const words = value.split(' ');
-        const updatedWords = words.map(word => {
+        const words = value?.split(' ');
+        const updatedWords = words?.map(word => {
           const turkishChars = 'çÇğĞıİöÖşŞüÜ';
           const englishChars = 'cCgGiIoOsSuU';
           let updatedWord = '';
@@ -74,28 +73,25 @@ const MainPage = () => {
           return updatedWord;
         });
     
-        const updatedText = updatedWords.join(' ');
+        const updatedText = updatedWords?.join(' ');
         setValue(updatedText);
         resolve();
       });}
-    function selectWrite() {
-        setValue(document.getElementsByClassName('search-inp')[0].value)
-        setLong(document.getElementsByClassName('search-inp')[0].value.length)
-    }
     function searchFunction(e){
         setValue(e.target.value)
-        setLong(e.target.value.length)
         setShow(true)
         const searchValue = searchInput.value.toLowerCase();
         suggestionsList.innerHTML = '';
-        const filteredData = CityData.filter(item => item.toLowerCase().includes(searchValue));
-        filteredData.forEach(item => {
+        const filteredData = CityData.filter(item => item.cityName.name.toLowerCase().includes(searchValue));
+        filteredData.forEach((item,index) => {
           const listItem = document.createElement('div');
           listItem.classList.add("data-div")
-          listItem.textContent = item;
+          listItem.textContent = item.cityName.name;
           listItem.addEventListener('click', function() {
-            searchInput.value = item;
+            searchInput.value = item.cityName.name;
           });
+          listItem.id = (item.cityData);
+          
           suggestionsList.appendChild(listItem);
         });
       }
@@ -106,10 +102,8 @@ const MainPage = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className='search-box-wrapper'>
-                                <button style={long>0? {display:"block"}:{display:"none"}} className='edit-info-btn' onClick={replaceWord}><ModeEditOutlineIcon id="edit-info"/></button>
-                                <input id="searchInput" onClick={()=>{setShow(true)}} onInput={searchFunction} className='search-inp' type="text" />
-                                <div onClick={selectWrite} style={!show ?{display:"none"}:{display:"block"}} id="suggestionsList"></div>
-                                <button onClick={inpWrite} className='search-btn'><SearchIcon /> City Search</button>
+                                <input id="searchInput" onClick={()=>{setShow(true)}} onInput={searchFunction} className='search-inp' placeholder='Search...' type="text" />
+                                <div onClick={inpWrite} style={!show ?{display:"none"}:{display:"block"}} id="suggestionsList"></div>
                             </div>
                         </div>
                     </div>
@@ -153,7 +147,7 @@ const MainPage = () => {
                                     </p>
                                 </div>
                                 <div className='location-section'>
-                                    <PlaceIcon className='location-icon' /> <span className='location-span'>{array?.location.name}</span>
+                                    <PlaceIcon className='location-icon' /> <span className='location-span'>{cityName}</span>
                                 </div>
                             </div>
                         </div>
