@@ -53,25 +53,27 @@ const MainPage = () => {
             setWarning(true);
             setIsLoading(false);
           });
-  
         }
-    function searchFunction(e){
-        setValue(e.target.value)
-        setShow(true)
-        const searchValue = searchInput.value.toLowerCase();
-        suggestionsList.innerHTML = '';
-        const filteredData = CityData.filter(item => item.cityName.name.toLowerCase().includes(searchValue));
-        filteredData.forEach((item,index) => {
-          const listItem = document.createElement('div');
-          listItem.classList.add("data-div")
-          listItem.textContent = item.cityName.name;
-          listItem.addEventListener('click', function() {
-            searchInput.value = item.cityName.name;
+        function searchFunction(e) {
+          setValue(e.target.value);
+          setShow(true);
+          const searchValue = searchInput.value.toLowerCase();
+          suggestionsList.innerHTML = '';
+          const filteredData = CityData.filter(item => {
+            const cityNames = item.cityName.name.toLowerCase().split(' ');
+            return cityNames.some(city => city.includes(searchValue));
           });
-          listItem.id = (item.cityData);
-          suggestionsList.appendChild(listItem);
-        });
-      }
+          filteredData.forEach((item, index) => {
+            const listItem = document.createElement('div');
+            listItem.classList.add("data-div");
+            listItem.textContent = item.cityName.name;
+            listItem.addEventListener('click', function() {
+              searchInput.value = item.cityName.name;
+            });
+            listItem.id = item.cityData;
+            suggestionsList.appendChild(listItem);
+          });
+        }
         return (
         <>
             <div className="main-container">
