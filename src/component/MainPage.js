@@ -164,7 +164,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[0].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 2 >= 24 ? date + 2 - 24 : date + 2}`].humidity}%
                                         </div>
                                     </div>
                                     <div style={{ color: "white" }} className="row">
@@ -179,7 +179,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[1].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 4 >= 24 ? date + 4 - 24 : date + 4}`].humidity}%
                                         </div>
                                     </div>
                                     <div style={{ color: "white" }} className="row">
@@ -194,7 +194,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[2].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 6 >= 24 ? date + 6 - 24 : date + 6}`].humidity}%
                                         </div>
                                     </div>
                                     <div style={{ color: "white" }} className="row">
@@ -209,7 +209,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[3].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 8 >= 24 ? date + 8 - 24 : date + 8}`].humidity}%
                                         </div>
                                     </div>
                                     <div style={{ color: "white" }} className="row">
@@ -224,7 +224,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[4].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 10 >= 24 ? date + 10 - 24 : date + 10}`].humidity}%
 
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[5].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 12 >= 24 ? date + 12 - 24 : date + 12}`].humidity}%
 
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@ const MainPage = () => {
                                             </div>
                                         </div>
                                         <div className="col-2 center">
-                                            {array?.forecast.forecastday[0].hour[6].humidity}%
+                                            {array?.forecast.forecastday[0].hour[`${date + 14 >= 24 ? date + 14 - 24 : date + 14}`].humidity}%
 
                                         </div>
                                     </div>
