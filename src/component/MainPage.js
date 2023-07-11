@@ -55,26 +55,27 @@ const MainPage = () => {
         }
 
         function searchFunction(e) {
-          setValue(e.target.value);
-          setShow(true);
-          const searchValue = searchInput.value.toLowerCase();
-          suggestionsList.innerHTML = '';
-          const filteredData = CityData.filter(item => {
-            const cityName = item.cityName.name.toLowerCase();
-            return cityName.startsWith(searchValue);
-          });
-          filteredData.forEach((item) => {
-            const listItem = document.createElement('div');
-            listItem.classList.add("data-div");
-            listItem.textContent = item.cityName.name;
-            listItem.addEventListener('click', function() {
-              searchInput.value = item.cityName.name;
+            setValue(e.target.value);
+            setShow(true);
+            const searchValue = searchInput.value;
+            suggestionsList.innerHTML = '';
+            const filteredData = CityData.filter(item => {
+              const cityName = item.cityName.name;
+              return cityName.toLocaleLowerCase('tr-TR').startsWith(searchValue.toLocaleLowerCase('tr-TR'))
+                || cityName.toLocaleUpperCase('tr-TR').startsWith(searchValue.toLocaleUpperCase('tr-TR'));
             });
-            listItem.id = item.cityData;
-            suggestionsList.appendChild(listItem);
-          });
-        }
-        
+            filteredData.forEach((item) => {
+              const listItem = document.createElement('div');
+              listItem.classList.add("data-div");
+              listItem.textContent = item.cityName.name;
+              listItem.addEventListener('click', function() {
+                searchInput.value = item.cityName.name;
+              });
+              listItem.id = item.cityData;
+              suggestionsList.appendChild(listItem);
+            });
+          }
+          
         return (
         <>
             <div className="main-container">

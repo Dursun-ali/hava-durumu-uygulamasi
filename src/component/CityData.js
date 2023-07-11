@@ -43,7 +43,7 @@ export default [
   { cityName: { name: "Kütahya", id: 42 }, cityData: "kütahya" },
   { cityName: { name: "Malatya", id: 43 }, cityData: "malatya" },
   { cityName: { name: "Manisa", id: 44 }, cityData: "manisa" },
-  { cityName: { name: "Kahramanmaraş", id: 45 }, cityData: "Kahramanmaraş" },
+  { cityName: { name: "Kahramanmaraş", id: 45 }, cityData: "Kahramanmaras" },
   { cityName: { name: "Mardin", id: 46 }, cityData: "mardin" },
   { cityName: { name: "Muğla", id: 47 }, cityData: "mugla" },
   { cityName: { name: "Muğla", id: 48 }, cityData: "mugla" },
