@@ -36,6 +36,7 @@ const MainPage = () => {
         };
         fetchData();
       }, []);
+
      function inpWrite(e) {
       setCity(document.getElementsByClassName('data-div')[e.target.id].textContent)
         setShow(false);
@@ -52,16 +53,17 @@ const MainPage = () => {
             setIsLoading(false);
           });
         }
+
         function searchFunction(e) {
           setValue(e.target.value);
           setShow(true);
           const searchValue = searchInput.value.toLowerCase();
           suggestionsList.innerHTML = '';
           const filteredData = CityData.filter(item => {
-            const cityNames = item.cityName.name.toLowerCase().split(' ');
-            return cityNames.some(city => city.includes(searchValue));
+            const cityName = item.cityName.name.toLowerCase();
+            return cityName.startsWith(searchValue);
           });
-          filteredData.forEach((item, index) => {
+          filteredData.forEach((item) => {
             const listItem = document.createElement('div');
             listItem.classList.add("data-div");
             listItem.textContent = item.cityName.name;
@@ -72,6 +74,7 @@ const MainPage = () => {
             suggestionsList.appendChild(listItem);
           });
         }
+        
         return (
         <>
             <div className="main-container">
