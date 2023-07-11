@@ -21,6 +21,7 @@ const MainPage = () => {
     const searchInput = document.getElementById('searchInput');
     const suggestionsList = document.getElementById('suggestionsList');
     const [city,setCity]=useState("Trabzon")
+    const [long,setLong]=useState()
 
       useEffect(() => {
         const fetchData = async () => {
@@ -53,8 +54,9 @@ const MainPage = () => {
             setIsLoading(false);
           });
         }
-
+        
         function searchFunction(e) {
+            setLong(e.target.value.length)
             setValue(e.target.value);
             setShow(true);
             const searchValue = searchInput.value;
@@ -75,7 +77,6 @@ const MainPage = () => {
               suggestionsList.appendChild(listItem);
             });
           }
-          
         return (
         <>
             <div className="main-container">
@@ -84,7 +85,7 @@ const MainPage = () => {
                         <div className="col-md-12">
                             <div className='search-box-wrapper'>
                                 <input id="searchInput" onClick={()=>{setShow(true)}} onInput={searchFunction} className='search-inp' placeholder='Search...' type="text" />
-                                <div onClick={inpWrite} style={!show ?{display:"none"}:{display:"block"}} id="suggestionsList"></div>
+                                <div onClick={inpWrite} style={(!show||long<1) ?{display:"none"}:{display:"block"}} id="suggestionsList"></div>
                             </div>
                         </div>
                     </div>

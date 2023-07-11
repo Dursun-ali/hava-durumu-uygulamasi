@@ -46,7 +46,7 @@ export default [
   { cityName: { name: "Kahramanmaraş", id: 45 }, cityData: "Kahramanmaras" },
   { cityName: { name: "Mardin", id: 46 }, cityData: "mardin" },
   { cityName: { name: "Muğla", id: 47 }, cityData: "mugla" },
-  { cityName: { name: "Muğla", id: 48 }, cityData: "mugla" },
+  { cityName: { name: "Antalya", id: 48 }, cityData: "antalya" },
   { cityName: { name: "Muş", id: 49 }, cityData: "mus" },
   { cityName: { name: "Nevşehir", id: 50 }, cityData: "nevşehir" },
   { cityName: { name: "Niğde", id: 51 }, cityData: "nigde" },
