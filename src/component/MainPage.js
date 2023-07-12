@@ -32,7 +32,7 @@ const MainPage = () => {
     const APP_KEY = "d923ae6770a14f9494d95349232003";
     const searchInput = document.getElementById('searchInput');
     const suggestionsList = document.getElementById('suggestionsList');
-    const [city, setCity] = useState("Trabzon")
+    const [city, setCity] = useState("Sivas")
     const [long, setLong] = useState()
     const [date, setDate] = useState()
 
@@ -41,31 +41,31 @@ const MainPage = () => {
     const [deneme, setDeneme] = useState([10, 20, 15, 35, 25])
     const data = [
         {
-            name:`${((date + 2 - 24 < 10 && date + 2 - 24 >= 0) || (date < 10))? "0":""}${date + 2 >= 24 ? date + 2 - 24 : date + 2}:00`  ,
+            name:`${((date + 2 - 24 < 10 && date + 2 - 24 >= 0) || (date+2 < 10))? "0":""}${date + 2 >= 24 ? date + 2 - 24 : date + 2}:00`  ,
             uv: array?.forecast.forecastday[0]?.hour[`${date + 2 >= 24 ? date + 2 - 24 : date + 2}`].temp_c,
         },
         {
-            name: `${((date + 4 - 24 < 10 && date + 4 - 24 >= 0) || (date < 10))? "0":""}${date + 4 >= 24 ? date + 4 - 24 : date + 4}:00`,
+            name: `${((date + 4 - 24 < 10 && date + 4 - 24 >= 0) || (date+4 < 10))? "0":""}${date + 4 >= 24 ? date + 4 - 24 : date + 4}:00`,
             uv:array?.forecast.forecastday[0]?.hour[`${date + 4 >= 24 ? date + 4 - 24 : date + 4}`].temp_c,
         },
         {
-            name: `${((date + 6 - 24 < 10 && date + 6 - 24 >= 0) || (date < 10))? "0":""}${date + 6 >= 24 ? date + 6 - 24 : date + 6}:00`,
+            name: `${((date + 6 - 24 < 10 && date + 6 - 24 >= 0) || (date+6 < 10))? "0":""}${date + 6 >= 24 ? date + 6 - 24 : date + 6}:00`,
             uv:array?.forecast.forecastday[0]?.hour[`${date + 6 >= 24 ? date + 6 - 24 : date + 6}`].temp_c,
         },
         {
-            name: `${((date + 8 - 24 < 10 && date + 8 - 24 >= 0) || (date < 10))? "0":""}${date + 8 >= 24 ? date + 8 - 24 : date + 8}:00`,
+            name: `${((date + 8 - 24 < 10 && date + 8 - 24 >= 0) || (date+8 < 10))? "0":""}${date + 8 >= 24 ? date + 8 - 24 : date + 8}:00`,
             uv:array?.forecast.forecastday[0]?.hour[`${date + 8 >= 24 ? date + 8 - 24 : date + 8}`].temp_c,
         },
         {
-            name:`${((date + 10 - 24 < 10 && date + 10 - 24 >= 0) || (date < 10))? "0":""}${date + 10 >= 24 ? date + 10 - 24 : date + 10}:00`,
+            name:`${((date + 10 - 24 < 10 && date + 10 - 24 >= 0) || (date+10 < 10))? "0":""}${date + 10 >= 24 ? date + 10 - 24 : date + 10}:00`,
             uv:array?.forecast.forecastday[0]?.hour[`${date + 10 >= 24 ? date + 10 - 24 : date + 10}`].temp_c,
         },
         {
-            name:`${((date + 12 - 24 < 12 && date + 12 - 24 >= 0) || (date < 10))? "0":""}${date + 12 >= 24 ? date + 12 - 24 : date + 12}:00`,
+            name:`${((date + 12 - 24 < 12 && date + 12 - 24 >= 0) || (date+12 < 10))? "0":""}${date + 12 >= 24 ? date + 12 - 24 : date + 12}:00`,
             uv:array?.forecast.forecastday[0]?.hour[`${date + 12 >= 24 ? date + 12 - 24 : date + 12}`].temp_c,
         },
         {
-            name:`${((date + 14 - 24 < 10 && date + 14 - 24 >= 0) || (date < 10))? "0":""}${date + 14 >= 24 ? date + 14 - 24 : date + 14}:00`,
+            name:`${((date + 14 - 24 < 10 && date + 14 - 24 >= 0) || (date+14 < 10))? "0":""}${date + 14 >= 24 ? date + 14 - 24 : date + 14}:00`,
             uv:array?.forecast.forecastday[0]?.hour[`${date + 14 >= 24 ? date + 14 - 24 : date + 14}`].temp_c,
         },
     ];
@@ -73,7 +73,7 @@ const MainPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=Trabzon&days=7&aqi=no&alerts=no`);
+                const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=Sivas&days=7&aqi=no&alerts=no`);
                 setArray(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -154,7 +154,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 2 - 24 < 10 && date + 2 - 24 >= 0) || (date < 10)) && "0"}{date + 2 >= 24 ? date + 2 - 24 : date + 2}:00
+                                            {((date + 2 - 24 < 10 && date + 2 - 24 >= 0) || (date+2 < 10)) && "0"}{date + 2 >= 24 ? date + 2 - 24 : date + 2}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
@@ -169,7 +169,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 4 - 24 < 10 && date + 4 - 24 >= 0) || (date < 10)) && "0"}{date + 4 >= 24 ? date + 4 - 24 : date + 4}:00
+                                            {((date + 4 - 24 < 10 && date + 4 - 24 >= 0) || (date+4 < 10)) && "0"}{date + 4 >= 24 ? date + 4 - 24 : date + 4}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
@@ -184,7 +184,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 6 - 24 < 10 && date + 6 - 24 >= 0) || (date < 10)) && "0"}{date + 6 >= 24 ? date + 6 - 24 : date + 6}:00
+                                            {((date + 6 - 24 < 10 && date + 6 - 24 >= 0) || (date+6 < 10)) && "0"}{date + 6 >= 24 ? date + 6 - 24 : date + 6}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
@@ -199,7 +199,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 8 - 24 < 10 && date + 8 - 24 >= 0) || (date < 10)) && "0"}{date + 8 >= 24 ? date + 8 - 24 : date + 8}:00
+                                            {((date + 8 - 24 < 10 && date + 8 - 24 >= 0) || (date+8 < 10)) && "0"}{date + 8 >= 24 ? date + 8 - 24 : date + 8}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
@@ -214,7 +214,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 10 - 24 < 10 && date + 10 - 24 >= 0) || (date < 10)) && "0"}{date + 10 >= 24 ? date + 10 - 24 : date + 10}:00
+                                            {((date + 10 - 24 < 10 && date + 10 - 24 >= 0) || (date+10 < 10)) && "0"}{date + 10 >= 24 ? date + 10 - 24 : date + 10}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
@@ -230,7 +230,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 12 - 24 < 10 && date + 12 - 24 >= 0) || (date < 10)) && "0"}{date + 12 >= 24 ? date + 12 - 24 : date + 12}:00
+                                            {((date + 12 - 24 < 10 && date + 12 - 24 >= 0) || (date+12 < 10)) && "0"}{date + 12 >= 24 ? date + 12 - 24 : date + 12}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
@@ -246,7 +246,7 @@ const MainPage = () => {
                                     </div>
                                     <div style={{ color: "white" }} className="row">
                                         <div className="col-2 center">
-                                            {((date + 14 - 24 < 10 && date + 14 - 24 >= 0) || (date < 10)) && "0"}{date + 14 >= 24 ? date + 14 - 24 : date + 14}:00
+                                            {((date + 14 - 24 < 10 && date + 14 - 24 >= 0) || (date+14 < 10)) && "0"}{date + 14 >= 24 ? date + 14 - 24 : date + 14}:00
                                         </div>
                                         <div className="col-8">
                                             <div className='top-box'>
