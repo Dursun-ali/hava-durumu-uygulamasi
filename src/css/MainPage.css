@@ -358,12 +358,13 @@ margin-right: 4px;
 
 #suggestionsList {
     position: absolute;
-    width: 33.5%;
+    width:calc(30% + 46px) ;
     top: 104px;
     max-height: 530px;
     overflow-y: auto;
-    border: 1px solid #F7F7F7;
-    background-color: #ebebeb !important;
+    border: 1px solid white;
+    border-radius: 16px;
+    background-color: #ebebeb;
     z-index: 999;
     scrollbar-width: none; 
     -ms-overflow-style: none; 
@@ -383,4 +384,5 @@ margin-right: 4px;
     border-bottom: 1px solid  white;
     color: #363636;
     font-weight: 600;
+    background-color: #ebebeb !important;
   }
