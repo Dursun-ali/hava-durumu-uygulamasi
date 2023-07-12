@@ -164,7 +164,7 @@ margin-right: 4px;
     background: linear-gradient(to bottom right, #001931, #00396e);
 }
 .search-inp {
-    width: 60% !important;
+    width: 30% !important;
     outline: none;
     border: none;
     padding: 18px 12px;
@@ -358,7 +358,7 @@ margin-right: 4px;
 
 #suggestionsList {
     position: absolute;
-    width: 63.5%;
+    width: 33.5%;
     top: 104px;
     max-height: 530px;
     overflow-y: auto;
