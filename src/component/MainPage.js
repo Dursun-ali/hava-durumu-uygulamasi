@@ -7,7 +7,7 @@ import AirIcon from '@mui/icons-material/Air';
 import ExploreIcon from '@mui/icons-material/Explore';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import CompressIcon from '@mui/icons-material/Compress';
-
+import SearchIcon from '@mui/icons-material/Search';
 import {
     AreaChart,
     Area,
@@ -273,7 +273,14 @@ const MainPage = () => {
                         <div className="col-lg-9">
                             <div className='weather-box'>
                                 <div className='search-box-wrapper'>
+                                    {/* <div className='search-box'> */}
+                                    <div className='search-icon-div'>
+                                    <SearchIcon/>  
+                                    </div>
+                                   
                                     <input id="searchInput" onClick={() => { setShow(true) }} onInput={searchFunction} className='search-inp' placeholder='City search' type="text" />
+                                    
+                                    {/* </div> */}
                                     <div onClick={inpWrite} style={(!show || long < 1) ? { display: "none" } : { display: "block" }} id="suggestionsList"></div>
                                 </div>
                                 <h4 className='today-h4'>Today overview</h4>
