@@ -35,10 +35,28 @@ const MainPage = () => {
     const [city, setCity] = useState("Sivas")
     const [long, setLong] = useState()
     const [date, setDate] = useState()
-
+    const [number,setNumber]=useState()
+    const [cityNew,setCityNew]=useState()
+    const [locCity,setLocCity]=useState("Sivas")
+    const [active,setActive]=useState()
     var tarih = new Date();
+    
 
-    const [deneme, setDeneme] = useState([10, 20, 15, 35, 25])
+    useEffect(()=>{
+        if (number==1&&number!=0) {
+            setCity(document.getElementsByClassName("data-div")[0].id)
+        }
+    },[long])
+
+   function handleKeyPress (event) {
+        if (event.key === "Enter") {
+          if (number==1) {
+            setActive(true)
+            inpWrite();
+          }
+        }
+      };
+
     const data = [
         {
             name:`${((date + 2 - 24 < 10 && date + 2 - 24 >= 0) || (date+2 < 10))? "0":""}${date + 2 >= 24 ? date + 2 - 24 : date + 2}:00`  ,
@@ -85,13 +103,15 @@ const MainPage = () => {
         fetchData();
         setDate(tarih.getHours())
     }, []);
-    console.log(date);
 
-    function inpWrite(e) {
-        setCity(document.getElementsByClassName('data-div')[e.target.id].textContent)
+      function inpWrite(e) {
+        setLocCity(e?.target?.textContent)
+        setCity(e?.target?.id)
+        setCityNew(e?.target?.textContent)
+        setActive(false)
         setShow(false);
         setIsLoading(true);
-        const response = axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${e.target.id}&days=7&aqi=no&alerts=no`);
+        const response = axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${city}&days=7&aqi=no&alerts=no`);
         response.then(response => {
             setArray(response.data);
             setIsLoading(false);
@@ -105,28 +125,32 @@ const MainPage = () => {
     }
 
     function searchFunction(e) {
+        setActive(false)
         setLong(e.target.value.length)
         setValue(e.target.value);
+        setCity(e.target.value)
         setShow(true);
         const searchValue = searchInput.value;
         suggestionsList.innerHTML = '';
-        const filteredData = CityData.filter(item => {
+        const filteredData = CityData.filter((item,index) => {
             const cityName = item.cityName.name;
             return cityName.toLocaleLowerCase('tr-TR').startsWith(searchValue.toLocaleLowerCase('tr-TR'))
                 || cityName.toLocaleUpperCase('tr-TR').startsWith(searchValue.toLocaleUpperCase('tr-TR'));
         });
-        filteredData.forEach((item) => {
+        filteredData.forEach((item,index) => {
             const listItem = document.createElement('div');
             listItem.classList.add("data-div");
             listItem.textContent = item.cityName.name;
             listItem.addEventListener('click', function () {
                 searchInput.value = item.cityName.name;
+                setCity(item.cityData);
+                setLocCity(item.cityName.name)
             });
             listItem.id = item.cityData;
             suggestionsList.appendChild(listItem);
         });
+        setNumber(document.getElementsByClassName('data-div').length)
     }
-
     return (
         <>
             <div className="main-container">
@@ -225,7 +249,6 @@ const MainPage = () => {
                                         </div>
                                         <div className="col-2 center">
                                             {array?.forecast.forecastday[0].hour[`${date + 10 >= 24 ? date + 10 - 24 : date + 10}`].humidity}%
-
                                         </div>
                                     </div>
                                     <div style={{ color: "white" }} className="row">
@@ -241,7 +264,6 @@ const MainPage = () => {
                                         </div>
                                         <div className="col-2 center">
                                             {array?.forecast.forecastday[0].hour[`${date + 12 >= 24 ? date + 12 - 24 : date + 12}`].humidity}%
-
                                         </div>
                                     </div>
                                     <div style={{ color: "white" }} className="row">
@@ -257,14 +279,13 @@ const MainPage = () => {
                                         </div>
                                         <div className="col-2 center">
                                             {array?.forecast.forecastday[0].hour[`${date + 14 >= 24 ? date + 14 - 24 : date + 14}`].humidity}%
-
                                         </div>
                                     </div>
                                 </div>
                                 <div className='location-box-wrapper'>
                                     <div className="location-box">
                                         <div>
-                                            <PlaceIcon className='location-icon' /> <span className='location-span'>{city}</span>
+                                            <PlaceIcon className='location-icon' /> <span className='location-span'>{array?.location.name}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -273,14 +294,10 @@ const MainPage = () => {
                         <div className="col-lg-9">
                             <div className='weather-box'>
                                 <div className='search-box-wrapper'>
-                                    {/* <div className='search-box'> */}
                                     <div className='search-icon-div'>
                                     <SearchIcon/>  
                                     </div>
-                                   
-                                    <input id="searchInput" onClick={() => { setShow(true) }} onInput={searchFunction} className='search-inp' placeholder='City search' type="text" />
-                                    
-                                    {/* </div> */}
+                                    <input id="searchInput" onClick={() => { setShow(true) }} onInput={searchFunction}  onKeyPress={handleKeyPress} className='search-inp' placeholder='City search' type="text" />
                                     <div onClick={inpWrite} style={(!show || long < 1) ? { display: "none" } : { display: "block" }} id="suggestionsList"></div>
                                 </div>
                                 <h4 className='today-h4'>Today overview</h4>

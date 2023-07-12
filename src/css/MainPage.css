@@ -386,3 +386,7 @@ margin-right: 4px;
     font-weight: 600;
     background-color: #ebebeb !important;
   }
+  .data-div:hover{
+    color: white !important;
+    background-color: #00396e !important;
+  }
