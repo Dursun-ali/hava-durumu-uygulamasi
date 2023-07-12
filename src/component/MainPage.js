@@ -41,7 +41,6 @@ const MainPage = () => {
     const [active,setActive]=useState()
     var tarih = new Date();
     
-
     useEffect(()=>{
         if (number==1&&number!=0) {
             setCity(document.getElementsByClassName("data-div")[0].id)
@@ -52,11 +51,15 @@ const MainPage = () => {
         if (event.key === "Enter") {
           if (number==1) {
             setActive(true)
+            document.getElementsByClassName('search-inp')[0].value=document.getElementsByClassName("data-div")[0].textContent
             inpWrite();
           }
         }
       };
-
+      useEffect(()=>{
+        setActive(false)
+      },[])
+console.log(active);
     const data = [
         {
             name:`${((date + 2 - 24 < 10 && date + 2 - 24 >= 0) || (date+2 < 10))? "0":""}${date + 2 >= 24 ? date + 2 - 24 : date + 2}:00`  ,
@@ -108,7 +111,6 @@ const MainPage = () => {
         setLocCity(e?.target?.textContent)
         setCity(e?.target?.id)
         setCityNew(e?.target?.textContent)
-        setActive(false)
         setShow(false);
         setIsLoading(true);
         const response = axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${city}&days=7&aqi=no&alerts=no`);
@@ -125,7 +127,6 @@ const MainPage = () => {
     }
 
     function searchFunction(e) {
-        setActive(false)
         setLong(e.target.value.length)
         setValue(e.target.value);
         setCity(e.target.value)
@@ -297,7 +298,7 @@ const MainPage = () => {
                                     <div className='search-icon-div'>
                                     <SearchIcon/>  
                                     </div>
-                                    <input id="searchInput" onClick={() => { setShow(true) }} onInput={searchFunction}  onKeyPress={handleKeyPress} className='search-inp' placeholder='City search' type="text" />
+                                    <input  id="searchInput" onClick={() => { setShow(true) }} onInput={searchFunction}  onKeyPress={handleKeyPress} className='search-inp' placeholder='City search' type="text" />
                                     <div onClick={inpWrite} style={(!show || long < 1) ? { display: "none" } : { display: "block" }} id="suggestionsList"></div>
                                 </div>
                                 <h4 className='today-h4'>Today overview</h4>
